@@ -58,6 +58,7 @@ app.post('/download', function(req, res){
     Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
         if(error) console.log(error);
         else {
+            console.log(key);
             db.collection('file').findOne({_id:key},function(err, obj){
                 console.log(obj);
                 if(err) console.log(err);
