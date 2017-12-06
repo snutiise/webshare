@@ -80,9 +80,7 @@ app.post('/download', function(req, res){
                 if(obj){
                     res.setHeader('Content-disposition', 'attachment; filename=' + getDownloadFilename(req,obj.originalname).replace(/ /gi,"_"));
                     res.setHeader('Content-type', obj.mimetype);
-
-                    console.log(__dirname+"/"+obj.path);
-
+                    
                     var filestream = fs.createReadStream(__dirname+"/"+obj.path);
                     filestream.pipe(res);
                 }else  res.send("download fail");
