@@ -7,6 +7,7 @@ var app = express();
 var multer = require('multer'); 
 var upload = multer({ dest: 'uploads/' });
 var crypto = require('crypto');
+var iconvLite = require('iconv-lite');
 
 app.use(express.static(__dirname + '/public'));
 app.use('/file', express.static('uploads'));
