@@ -77,7 +77,6 @@ app.post('/download', function(req, res){
             db.collection('file').findOne({_id:key},function(err, obj){
                 if(err) console.log(err);
                 if(obj){
-                    /*
                     res.setHeader('Content-disposition', 'attachment; filename=' + getDownloadFilename(req,obj.originalname));
                     res.setHeader('Content-type', obj.mimetype);
 
@@ -85,8 +84,6 @@ app.post('/download', function(req, res){
 
                     var filestream = fs.createReadStream(__dirname+"/"+obj.path);
                     filestream.pipe(res);
-                    */
-                    res.download(__dirname+"/"+obj.path, getDownloadFilename(req,obj.originalname));
                 }else  res.send("fail");
             });
             db.close();
