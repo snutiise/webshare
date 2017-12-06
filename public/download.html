@@ -1,0 +1,26 @@
+<head>
+        <meta charset="utf-8">
+        <title>파일 다운로드</title>
+</head>
+<body>
+    <div style="text-align: center; top:50%;">
+        <input id="code" name="code" type="text" size="30"/>
+        <input type="button" value="Download" />
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        $(':button').on('click', function() {
+            $.ajax({
+                url: '/download',
+                type: 'POST',
+                data: {'code':$("#code").val()},
+                success:function(data){
+                    if(!data) alert("코드값이 잘못되었습니다!");
+                },
+                error: function(){
+                    alert('Server Error!');
+                }
+            });
+        });
+    </script>
+</body>
