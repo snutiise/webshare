@@ -82,7 +82,7 @@ app.post('/download', function(req, res){
                     res.setHeader('Content-disposition', 'attachment; filename=\"'+getDownloadFilename(req,obj.originalname).replace(/ /gi,"_")+'\"');
                     res.setHeader('Content-type', obj.mimetype);
 
-                    var filestream = fs.createReadStream(__dirname+"/"+obj.path);
+                    var filestream = fs.createReadStream(obj.path);
                     filestream.pipe(res);
                 }else  res.send("download fail");
             });
