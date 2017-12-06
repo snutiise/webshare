@@ -4,23 +4,10 @@
 </head>
 <body>
     <div style="text-align: center; top:50%;">
-        <input id="code" name="code" type="text" size="30"/>
-        <input type="button" value="Download" />
+        <form action="/download" method="post">
+            <input id="code" name="code" type="text" size="30"/>
+            <input type="submit" value="Download" />
+        </form>
     </div>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script>
-        $(':button').on('click', function() {
-            $.ajax({
-                url: '/download',
-                type: 'POST',
-                data: {'code':$("#code").val()},
-                success:function(data){
-                    if(data=="fail") alert("코드값이 잘못되었습니다!");
-                },
-                error: function(){
-                    alert('Server Error!');
-                }
-            });
-        });
-    </script>
 </body>
