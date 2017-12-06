@@ -1,0 +1,26 @@
+<head>
+        <meta charset="utf-8">
+        <title>업로드 리스트</title>
+    </head>
+    <body>
+        <div style="text-align: center; width:100%; height:100%;">
+            <div id="filelist" style="position: relative;">
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script>
+            $.ajax({
+                url: '/list',
+                type: 'POST',
+                success:function(data){
+                    if(data!="[]"){
+                        for(var i=0;i<data.lenth;i++){
+                            var list="파일명 : "+ data[i]["filename"] + "&nbsp; &nbsp; &nbsp; &nbsp;다운로드 코드 : " + data[i]["code"]+"<br>";
+                            $("#filelist").append(list);
+                        }
+                    }
+                    else $("#filelist").text("업로드 파일이 존재하지 않습니다!");
+                }
+            });
+        </script>
+    </body>

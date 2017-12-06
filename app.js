@@ -80,11 +80,33 @@ app.post('/download', function(req, res){
                 if(obj){
                     res.setHeader('Content-disposition', 'attachment; filename=' + getDownloadFilename(req,obj.originalname).replace(/ /gi,"_"));
                     res.setHeader('Content-type', obj.mimetype);
-                    
+
                     var filestream = fs.createReadStream(__dirname+"/"+obj.path);
                     filestream.pipe(res);
                 }else  res.send("download fail");
             });
+            db.close();
+        }
+    });
+});
+
+app.post('/list', function(req, res){
+    var key=String(getUserIP(req));
+    Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
+        if(error) console.log(error);
+        else {
+            var list = new Array();
+            db.collection('file').find({ip:key}).each(function(err, obj){
+                if(err) console.log(err);
+                if(obj){
+                    var data = new Object();
+                    data.code=obj._id;
+                    data.filename=obj.originalname;
+                    list.push(data);
+                }
+            });
+            var jsonData = JSON.stringify(list) ;
+            res.send(jsonData);
             db.close();
         }
     });
