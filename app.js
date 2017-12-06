@@ -36,6 +36,21 @@ function getUserIP(req){
     }
     return ipAddress;
 }
+function getDownloadFilename(req, filename) {
+    var header = req.headers['user-agent'];
+ 
+    if (header.includes("MSIE") || header.includes("Trident")) { 
+        return encodeURIComponent(filename).replace(/\\+/gi, "%20");
+    } else if (header.includes("Chrome")) {
+        return iconvLite.decode(iconvLite.encode(filename, "UTF-8"), 'ISO-8859-1');
+    } else if (header.includes("Opera")) {
+        return iconvLite.decode(iconvLite.encode(filename, "UTF-8"), 'ISO-8859-1');
+    } else if (header.includes("Firefox")) {
+        return iconvLite.decode(iconvLite.encode(filename, "UTF-8"), 'ISO-8859-1');
+    }
+ 
+    return filename;
+}
 
 app.post('/upload', upload.single('file'), function(req, res){
     var json=JSON.parse(JSON.stringify(req.file));
@@ -58,12 +73,10 @@ app.post('/download', function(req, res){
     Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
         if(error) console.log(error);
         else {
-            console.log(key);
             db.collection('file').findOne({_id:key},function(err, obj){
-                console.log(obj);
                 if(err) console.log(err);
                 if(obj){
-                    res.setHeader('Content-disposition', 'attachment; filename=' + obj.originalname);
+                    res.setHeader('Content-disposition', 'attachment; filename=' + getDownloadFilename(req,obj.originalname));
                     res.setHeader('Content-type', obj.mimetype);
                     
                     var filestream = fs.createReadStream(obj.path);
