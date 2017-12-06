@@ -107,7 +107,9 @@ app.post('/list', function(req, res){
                     list.push(data);
                 }
             });
-            var jsonData = JSON.stringify(list) ;
+            console.log(list);
+            var jsonData = JSON.stringify(list);
+            console.log(jsonData);
             res.send(jsonData);
             db.close();
         }
