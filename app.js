@@ -44,7 +44,7 @@ app.post('/upload', upload.single('file'), function(req, res){
     Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
         if(error) console.log(error);
         else {
-            db.collection('file').insert(JSON.parse(json),function(doc, err){
+            db.collection('file').insertOne(JSON.parse(json),function(doc, err){
                 if(err) console.log(err);
                 res.send(String(json._id));
             });
