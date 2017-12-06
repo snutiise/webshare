@@ -96,6 +96,7 @@ app.post('/list', function(req, res){
         if(error) console.log(error);
         else {
             var list = new Array();
+            console.log(key);
             db.collection('file').find({ip:key}).each(function(err, obj){
                 if(err) console.log(err);
                 if(obj){
