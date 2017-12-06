@@ -3,16 +3,18 @@
     <title>파일 업로드</title>
 </head>
 <body>
-    <div style="text-align: center; top:50%;">
-        <form enctype="multipart/form-data">
-            <input name="file" type="file" />
-            <input type="button" value="Upload" />
-        </form>
-        <progress></progress>
-        <p>
-            <span>Download Code > </span>
-            <span class="code"></span>
-        </p>
+    <div style="text-align: center; width:100%; height:100%;">
+        <div style="top:50%;position: relative;">
+            <form enctype="multipart/form-data">
+                <input name="file" type="file" />
+                <input type="button" value="Upload" />
+            </form>
+            <progress></progress>
+            <p>
+                <span>Download Code > </span>
+                <span class="code"></span>
+            </p>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script>
