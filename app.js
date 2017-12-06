@@ -59,6 +59,7 @@ app.post('/download', function(req, res){
         if(error) console.log(error);
         else {
             db.collection('file').findOne({_id:key},function(err, obj){
+                console.log(obj);
                 if(err) console.log(err);
                 if(obj){
                     res.setHeader('Content-disposition', 'attachment; filename=' + obj.originalname);
