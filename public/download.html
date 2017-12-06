@@ -15,7 +15,7 @@
                 type: 'POST',
                 data: {'code':$("#code").val()},
                 success:function(data){
-                    if(!data) alert("코드값이 잘못되었습니다!");
+                    if(data=="fail") alert("코드값이 잘못되었습니다!");
                 },
                 error: function(){
                     alert('Server Error!');

@@ -66,7 +66,7 @@ app.post('/download', function(req, res){
                     
                     var filestream = fs.createReadStream(obj.path);
                     filestream.pipe(res);
-                }else  res.send(0);
+                }else  res.send("fail");
             });
             db.close();
         }
