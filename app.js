@@ -103,6 +103,7 @@ app.post('/list', function(req, res){
                     var data = new Object();
                     data.code=obj._id;
                     data.filename=obj.originalname;
+                    console.log(data);
                     list.push(data);
                 }
             });
