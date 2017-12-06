@@ -80,7 +80,7 @@ app.post('/download', function(req, res){
                     res.setHeader('Content-disposition', 'attachment; filename=' + getDownloadFilename(req,obj.originalname));
                     res.setHeader('Content-type', obj.mimetype);
                     
-                    var filestream = fs.createReadStream(obj.path);
+                    var filestream = fs.createReadStream("/home/jsh/web/webshare/"+obj.path);
                     filestream.pipe(res);
                 }else  res.send("fail");
             });
