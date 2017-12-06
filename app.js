@@ -78,7 +78,7 @@ app.post('/download', function(req, res){
             db.collection('file').findOne({_id:key},function(err, obj){
                 if(err) console.log(err);
                 if(obj){
-                    res.setHeader('Content-disposition', 'attachment; filename=' + getDownloadFilename(req,obj.originalname).replace(" ","%20"));
+                    res.setHeader('Content-disposition', 'attachment; filename=' + getDownloadFilename(req,obj.originalname).replace(/ /gi,"_"));
                     res.setHeader('Content-type', obj.mimetype);
 
                     console.log(__dirname+"/"+obj.path);
