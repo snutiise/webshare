@@ -10,7 +10,7 @@ var crypto = require('crypto');
 var iconvLite = require('iconv-lite');
 
 app.use(express.static(__dirname + '/public'));
-app.use('/file', express.static('uploads'));
+
 app.use(bodyParser.urlencoded({extended : true}));
 
 app.get('/', function(req,res){
