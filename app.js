@@ -74,6 +74,7 @@ app.post('/download', function(req, res){
     Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
         if(error) console.log(error);
         else {
+            key=key.trimLeft().trimRight().trim();
             db.collection('file').findOne({_id:key},function(err, obj){
                 if(err) console.log(err);
                 if(obj){
@@ -84,7 +85,7 @@ app.post('/download', function(req, res){
 
                     var filestream = fs.createReadStream(__dirname+"/"+obj.path);
                     filestream.pipe(res);
-                }else  res.send("fail");
+                }else  res.send("download fail");
             });
             db.close();
         }
