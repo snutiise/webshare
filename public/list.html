@@ -14,7 +14,8 @@
                 type: 'POST',
                 success:function(data){
                     if(data!="[]"){
-                        for(var i=0;i<data.lenth;i++){
+                        var json=JSON.parse(data);
+                        for(var i=0;i<Object.keys(json).length;i++){
                             var list="파일명 : "+ data[i]["filename"] + "&nbsp; &nbsp; &nbsp; &nbsp;다운로드 코드 : " + data[i]["code"]+"<br>";
                             $("#filelist").append(list);
                         }
