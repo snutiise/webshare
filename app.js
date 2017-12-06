@@ -96,22 +96,19 @@ app.post('/list', function(req, res){
         if(error) console.log(error);
         else {
             var list = new Array();
-            console.log(key);
             db.collection('file').find({ip:key}).each(function(err, obj){
                 if(err) console.log(err);
                 if(obj){
                     var data = new Object();
                     data.code=obj._id;
                     data.filename=obj.originalname;
-                    console.log(data);
                     list.push(data);
+                }else{
+                    var jsonData = JSON.stringify(list);
+                    res.send(jsonData);
+                    db.close();
                 }
             });
-            console.log(list);
-            var jsonData = JSON.stringify(list);
-            console.log(jsonData);
-            res.send(jsonData);
-            db.close();
         }
     });
 });
