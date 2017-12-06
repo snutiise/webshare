@@ -5,7 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var multer = require('multer'); 
-var upload = multer({ dest: 'uploads/' });
+var upload = multer({ dest: __dirname+'/uploads/' });
 var crypto = require('crypto');
 var iconvLite = require('iconv-lite');
 
