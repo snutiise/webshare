@@ -56,7 +56,8 @@ function getDownloadFilename(req, filename) {
 app.post('/upload', upload.single('file'), function(req, res){
     var json=JSON.parse(JSON.stringify(req.file));
     json.ip=getUserIP(req);
-    json._id=crypto.createHash('md5').update(String(Date.now())).digest("hex");
+    json.date=String(Date.now());
+    json._id=crypto.createHash('md5').update(String(json.date)+String(json.ip)).digest("hex");
     Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
         if(error) console.log(error);
         else {
