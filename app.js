@@ -167,6 +167,7 @@ var job = schedule.scheduledJobs('30 * * * * *', function(){
                     var data = new Object();
                     data.id=obj._id;
                     data.date=obj.date;
+                    data.path=obj.path;
                     list.push(data);
                 }else{
                     for(i=0;i<list.length;i++){
@@ -174,6 +175,7 @@ var job = schedule.scheduledJobs('30 * * * * *', function(){
                         var now=Date.now();
                         if(now-date>259200000){
                             db.collection('file').remove({_id:list[i].id});
+                            fs.unlink(list[i].path);
                         }
                     }
                     db.close();
