@@ -132,24 +132,24 @@
                         var list="<tr><td><input type =\"checkbox\" name=\"share\" value=\"1\" "+check+"></td><td>"+ String(json[i]["filename"]) + "</td><td>" + String(json[i]["code"])+"</td></tr>";
                         $("#filelist").append(list);
                     }
+                    $("input[name=share]").on("click", function(){
+                        var share=0;
+                        var index = $("input[name=share]").index(this);
+                        if($(this).is(":checked")) share=1;
+                        alert(index);
+                        /*
+                        $.ajax({
+                            url: '/sharecheck',
+                            type: 'POST',
+                            data: {"check":share, "code":code},
+                            success:function(data){
+
+                            }
+                        });*/
+                    });
                 }
                 else $("#filelist").html("<tr><td colspan=\"3\" style=\"text-align:center;\"><h3>업로드 파일이 존재하지 않습니다!</h3></td></tr>");
             }
-        });
-        $("input[name=share]").on("click", function(){
-            var share=0;
-            var index = $("input[name=share]").index(this);
-            if($(this).is(":checked")) share=1;
-            alert(index);
-            /*
-            $.ajax({
-                url: '/sharecheck',
-                type: 'POST',
-                data: {"check":share, "code":code},
-                success:function(data){
-
-                }
-            });*/
         });
     </script>
 </body>
