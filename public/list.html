@@ -1,27 +1,142 @@
 <head>
-        <meta charset="utf-8">
-        <title>업로드 리스트</title>
-    </head>
-    <body>
-        <div style="text-align: center; width:100%; height:100%;">
-            <div id="filelist" style="position: relative;">
-            </div>
+    <meta charset="utf-8">
+    <title>업로드 리스트</title>
+    <style>
+    #upload_log a:visited {
+        color: #999999;
+        font-weight:bold;
+        text-decoration:none;
+    }
+    #upload_log a:active,
+    #upload_log a:hover {
+        color: #bd5a35;
+        text-decoration:underline;
+    }
+    #upload_log {
+        font-family:Arial, Helvetica, sans-serif;
+        color:#666;
+        font-size:12px;
+        text-shadow: 1px 1px 0px #fff;
+        background:#eaebec;
+        margin:20px;
+        border:#ccc 1px solid;
+
+        -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        border-radius:3px;
+
+        -moz-box-shadow: 0 1px 2px #d1d1d1;
+        -webkit-box-shadow: 0 1px 2px #d1d1d1;
+        box-shadow: 0 1px 2px #d1d1d1;
+    }
+    #upload_log th {
+        padding:21px 25px 22px 25px;
+        border-top:1px solid #fafafa;
+        border-bottom:1px solid #e0e0e0;
+
+        background: #ededed;
+        background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+        background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+    }
+    #upload_log th:first-child {
+        text-align: left;
+        padding-left:20px;
+    }
+    #upload_log tr:first-child th:first-child {
+        -moz-border-radius-topleft:3px;
+        -webkit-border-top-left-radius:3px;
+        border-top-left-radius:3px;
+    }
+    #upload_log tr:first-child th:last-child {
+        -moz-border-radius-topright:3px;
+        -webkit-border-top-right-radius:3px;
+        border-top-right-radius:3px;
+    }
+    #upload_log tr {
+        text-align: center;
+        padding-left:20px;
+    }
+    #upload_log td:first-child {
+        text-align: left;
+        padding-left:20px;
+        border-left: 0;
+    }
+    #upload_log td {
+        padding:10px;
+        border-top: 1px solid #ffffff;
+        border-bottom:1px solid #e0e0e0;
+        border-left: 1px solid #e0e0e0;
+
+        background: #fafafa;
+        background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+        background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+    }
+    #upload_log td.second {
+    text-align:right;
+        padding:18px;
+        border-top: 1px solid #ffffff;
+        border-bottom:1px solid #e0e0e0;
+        border-left: 1px solid #e0e0e0;
+
+        background: #fafafa;
+        background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+        background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+    }
+    #upload_log tr.even td {
+        background: #f6f6f6;
+        background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+        background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+    }
+    #upload_log tr:last-child td {
+        border-bottom:0;
+    }
+    #upload_log tr:last-child td:first-child {
+        -moz-border-radius-bottomleft:3px;
+        -webkit-border-bottom-left-radius:3px;
+        border-bottom-left-radius:3px;
+    }
+    #upload_log tr:last-child td:last-child {
+        -moz-border-radius-bottomright:3px;
+        -webkit-border-bottom-right-radius:3px;
+        border-bottom-right-radius:3px;
+    }
+    #upload_log tr:hover td {
+        background: #f2f2f2;
+        background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+        background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+    }
+    </style>
+</head>
+<body>
+    <div style="text-align: center; width:100%; height:100%;">
+        <div style="display: inline-block; max-width:1024;">
+            <table id="upload_log" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>파일명</th>
+                        <th width="300px">다운로드 코드</th>
+                    </tr>
+                </thead>
+                <tbody id="filelist">
+                </tbody>
+            </table>
         </div>
-        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-        <script>
-            $.ajax({
-                url: '/list',
-                type: 'POST',
-                success:function(data){
-                    if(data!="[]"){
-                        var json=JSON.parse(data);
-                        for(var i=0;i<Object.keys(json).length;i++){
-                            var list="파일명 : "+ String(json[i]["filename"]) + "&nbsp; &nbsp; &nbsp; &nbsp;다운로드 코드 : " + String(json[i]["code"])+"<br>";
-                            $("#filelist").append(list);
-                        }
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        $.ajax({
+            url: '/list',
+            type: 'POST',
+            success:function(data){
+                if(data!="[]"){
+                    var json=JSON.parse(data);
+                    for(var i=0;i<Object.keys(json).length;i++){
+                        var list="<tr><td>"+ String(json[i]["filename"]) + "</td><td>" + String(json[i]["code"])+"</td></tr>";
+                        $("#filelist").append(list);
                     }
-                    else $("#filelist").text("업로드 파일이 존재하지 않습니다!");
                 }
-            });
-        </script>
-    </body>
+                else $("#filelist").text("업로드 파일이 존재하지 않습니다!");
+            }
+        });
+    </script>
+</body>
