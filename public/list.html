@@ -129,14 +129,14 @@
                     for(var i=0;i<Object.keys(json).length;i++){
                         var check ="";
                         if(json[i]["share"]) check="checked";
-                        var list="<tr><td><input type =\"checkbox\" name=\"share\" value=\"1\" "+check+"></td><td>"+ String(json[i]["filename"]) + "</td><td>" + String(json[i]["code"])+"</td></tr>";
+                        var list="<tr><td><input type =\"checkbox\" name=\"share\" value=\"1\" "+check+"></td><td>"+ String(json[i]["filename"]) + "</td><td class=\"code\">" + String(json[i]["code"])+"</td></tr>";
                         $("#filelist").append(list);
                     }
                     $("input[name=share]").on("click", function(){
                         var share=0;
                         var index = $("input[name=share]").index(this);
                         if($(this).is(":checked")) share=1;
-                        alert(index);
+                        alert($(".code").eq(index).text());
                         /*
                         $.ajax({
                             url: '/sharecheck',
