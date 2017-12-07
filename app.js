@@ -8,6 +8,7 @@ var multer = require('multer');
 var upload = multer({ dest: __dirname+'/uploads/' });
 var crypto = require('crypto');
 var iconvLite = require('iconv-lite');
+var schedule = require('node-schedule');
 
 app.use(express.static(__dirname + '/public'));
 
@@ -155,6 +156,32 @@ app.post('/sharecheck', function(req, res){
     });
 });
 
+var job = schedule.scheduledJobs('30 * * * * *', function(){
+    Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
+        if(error) console.log(error);
+        else {
+            var list = new Array();
+            db.collection('file').find().sort({date:1}).limit(500).each(function(err, obj){
+                if(err) console.log(err);
+                if(obj){
+                    var data = new Object();
+                    data.id=obj._id;
+                    data.date=obj.date;
+                    list.push(data);
+                }else{
+                    for(i=0;i<list.length;i++){
+                        var date=Number(list[i].date);
+                        var now=Date.now();
+                        if(now-date>259200000){
+                            db.collection('file').remove({_id:list[i].id});
+                        }
+                    }
+                    db.close();
+                }
+            });
+        }
+    });
+});
 app.use((req, res, next) => {
     res.status(404).redirect('http://sodeok.xyz');
 });
