@@ -104,6 +104,30 @@ app.post('/list', function(req, res){
                     var data = new Object();
                     data.code=obj._id;
                     data.filename=obj.originalname;
+                    data.share=obj.share;
+                    list.push(data);
+                }else{
+                    var jsonData = JSON.stringify(list);
+                    res.send(jsonData);
+                    db.close();
+                }
+            });
+        }
+    });
+});
+
+app.post('/share', function(req, res){
+    var key=String(getUserIP(req));
+    Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
+        if(error) console.log(error);
+        else {
+            var list = new Array();
+            db.collection('file').find({share:1}).each(function(err, obj){
+                if(err) console.log(err);
+                if(obj){
+                    var data = new Object();
+                    data.code=obj._id;
+                    data.filename=obj.originalname;
                     list.push(data);
                 }else{
                     var jsonData = JSON.stringify(list);

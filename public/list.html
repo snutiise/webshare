@@ -38,10 +38,6 @@
         background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
         background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
     }
-    #upload_log th:first-child {
-        text-align: left;
-        padding-left:20px;
-    }
     #upload_log tr:first-child th:first-child {
         -moz-border-radius-topleft:3px;
         -webkit-border-top-left-radius:3px;
@@ -56,24 +52,13 @@
         text-align: center;
         padding-left:20px;
     }
-    #upload_log td:first-child {
+    #upload_log td:nth-child(2) {
         text-align: left;
         padding-left:20px;
         border-left: 0;
     }
     #upload_log td {
         padding:10px;
-        border-top: 1px solid #ffffff;
-        border-bottom:1px solid #e0e0e0;
-        border-left: 1px solid #e0e0e0;
-
-        background: #fafafa;
-        background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
-        background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
-    }
-    #upload_log td.second {
-    text-align:right;
-        padding:18px;
         border-top: 1px solid #ffffff;
         border-bottom:1px solid #e0e0e0;
         border-left: 1px solid #e0e0e0;
@@ -113,6 +98,7 @@
             <table id="upload_log" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>공유</th>
                         <th>파일명</th>
                         <th width="300px">다운로드 코드</th>
                     </tr>
@@ -131,7 +117,9 @@
                 if(data!="[]"){
                     var json=JSON.parse(data);
                     for(var i=0;i<Object.keys(json).length;i++){
-                        var list="<tr><td>"+ String(json[i]["filename"]) + "</td><td>" + String(json[i]["code"])+"</td></tr>";
+                        var check ="";
+                        if(json[i]["share"]) check="checked";
+                        var list="<tr><td><input type =\"checkbox\" name=\"share\" value=\"1\" "+check+"></td><td>"+ String(json[i]["filename"]) + "</td><td>" + String(json[i]["code"])+"</td></tr>";
                         $("#filelist").append(list);
                     }
                 }
