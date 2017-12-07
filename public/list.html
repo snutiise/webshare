@@ -139,7 +139,7 @@
                         $.ajax({
                             url: '/sharecheck',
                             type: 'POST',
-                            data: {"check":share, "code":$(".code").eq(index).text()},
+                            data: {"share":share, "code":$(".code").eq(index).text()},
                             success:function(data){
                                 if(data!="ok") alert("공유 실패");
                             }
