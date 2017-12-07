@@ -136,16 +136,14 @@
                         var share=0;
                         var index = $("input[name=share]").index(this);
                         if($(this).is(":checked")) share=1;
-                        alert($(".code").eq(index).text());
-                        /*
                         $.ajax({
                             url: '/sharecheck',
                             type: 'POST',
-                            data: {"check":share, "code":code},
+                            data: {"check":share, "code":$(".code").eq(index).text()},
                             success:function(data){
-
+                                if(data!="ok") alert("공유 실패");
                             }
-                        });*/
+                        });
                     });
                 }
                 else $("#filelist").html("<tr><td colspan=\"3\" style=\"text-align:center;\"><h3>업로드 파일이 존재하지 않습니다!</h3></td></tr>");

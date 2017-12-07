@@ -139,6 +139,22 @@ app.post('/share', function(req, res){
     });
 });
 
+app.post('/sharecheck', function(req, res){
+    var check=Number(req.body.share);
+    var code=String(req.body.code);
+
+    Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
+        if(error) console.log(error);
+        else {
+            db.collection('file').updateOne({_id:code},{share:check},function(err, res){
+                if(err) console.log(err);
+                else res.send("ok");
+                db.close();
+            });
+        }
+    });
+});
+
 app.use((req, res, next) => {
     res.status(404).redirect('http://sodeok.xyz');
 });
