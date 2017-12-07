@@ -146,7 +146,7 @@ app.post('/sharecheck', function(req, res){
     Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
         if(error) console.log(error);
         else {
-            db.collection('file').updateOne({_id:code},{share:check},function(err, res){
+            db.collection('file').updateOne({_id:code},{share:check},function(err, doc){
                 if(err) console.log(err);
                 else res.send("ok");
                 db.close();
