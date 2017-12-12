@@ -156,7 +156,7 @@ app.post('/sharecheck', function(req, res){
     });
 });
 
-var job = schedule.rescheduleJob('30 * * * * *', function(){
+var job = schedule.scheduleJob('30 * * * * *', function(){
     Client.connect('mongodb://localhost:27017/webshare', function(error, db) {
         if(error) console.log(error);
         else {
